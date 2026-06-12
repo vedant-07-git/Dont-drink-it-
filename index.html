@@ -1,17 +1,155 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sip Secretly</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don't Drink It 🧋</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Sip Secretly 🧋</h1>
-<p>Game UI placeholder. Connect with style.css and script.js.</p>
 
-<button id="drinkBtn">HOLD TO DRINK 🧋</button>
+<div class="game-container">
+
+    <!-- Top UI -->
+    <div class="top-ui">
+
+        <div class="best-score">
+            🏆 BEST:
+            <span id="bestScore">0.00s</span>
+        </div>
+
+        <div class="timer">
+            <span id="timer">0.00s</span>
+        </div>
+
+    </div>
+
+
+    <!-- Scene -->
+    <div class="scene">
+
+        <!-- LEFT USER -->
+        <div class="character left-user" id="leftUser">
+
+            <div class="speech-bubble" id="speechBubble">
+                I knew it!
+            </div>
+
+            <div class="head">
+
+                <div class="eyebrow eyebrow-left"></div>
+                <div class="eyebrow eyebrow-right"></div>
+
+                <div class="eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+
+                <div class="mouth"></div>
+
+            </div>
+
+            <div class="body"></div>
+
+            <div class="laptop dark-laptop">
+                <div class="screen"></div>
+                <div class="base"></div>
+            </div>
+
+        </div>
+
+
+        <!-- CUP -->
+        <div class="cup-area">
+
+            <div class="straw"></div>
+
+            <div class="cup">
+
+                <div class="tea" id="tea">
+
+                    <div class="boba b1"></div>
+                    <div class="boba b2"></div>
+                    <div class="boba b3"></div>
+                    <div class="boba b4"></div>
+                    <div class="boba b5"></div>
+                    <div class="boba b6"></div>
+                    <div class="boba b7"></div>
+                    <div class="boba b8"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT USER -->
+        <div class="character right-user working" id="rightUser">
+
+            <div class="sweat sweat1"></div>
+            <div class="sweat sweat2"></div>
+
+            <div class="head">
+
+                <div class="eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+
+                <div class="mouth"></div>
+
+            </div>
+
+            <div class="body"></div>
+
+            <div class="laptop light-laptop">
+                <div class="screen"></div>
+                <div class="base"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Controls -->
+    <div class="controls">
+
+        <button id="drinkBtn">
+            HOLD TO DRINK 🧋
+        </button>
+
+    </div>
+
+
+    <!-- Result Overlay -->
+    <div class="overlay" id="overlay">
+
+        <div class="result-card">
+
+            <h1 id="resultTitle">
+                YOU LOSE
+            </h1>
+
+            <p id="resultText">
+                Caught red handed!
+            </p>
+
+            <button id="restartBtn">
+                Play Again
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
+```
