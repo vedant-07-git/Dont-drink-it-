@@ -1,209 +1,361 @@
-```javascript
-const leftUser = document.getElementById("leftUser");
-const rightUser = document.getElementById("rightUser");
+```css
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-const tea = document.getElementById("tea");
+body{
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+    background:#000;
+}
 
-const timeText = document.getElementById("time");
-const bestText = document.getElementById("best");
+.game-container{
+    width:100vw;
+    height:100vh;
+    background:linear-gradient(to bottom,#3d0606,#1a0000);
+    position:relative;
+}
 
-const overlay = document.getElementById("overlay");
-const resultTitle = document.getElementById("resultTitle");
-const resultText = document.getElementById("resultText");
+/* Top UI */
+.top-ui{
+    position:absolute;
+    top:20px;
+    width:100%;
+    z-index:100;
+}
 
-const restartBtn = document.getElementById("restartBtn");
+.timer{
+    text-align:center;
+    color:white;
+    font-size:48px;
+    font-weight:bold;
+}
 
-const speechBubble = document.getElementById("speechBubble");
+.best-score{
+    position:absolute;
+    left:20px;
+    color:white;
+    font-size:18px;
+}
 
-const drinkBtn = document.getElementById("drinkBtn");
+/* Scene */
+.scene{
+    position:absolute;
+    width:100%;
+    bottom:180px;
 
-let drinking = false;
-let gameOver = false;
+    display:flex;
+    justify-content:space-around;
+    align-items:flex-end;
+}
 
-let teaLevel = 80;
+/* Character */
+.character{
+    position:relative;
+}
 
-let timer = 0;
-let bestScore = 0;
+/* Head */
+.head{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:white;
+    border:4px solid black;
+    position:relative;
+    transition:.3s;
+}
 
-let animationFrame;
+/* Eyes */
+.eyes{
+    display:flex;
+    gap:18px;
 
-function update() {
+    position:absolute;
+    top:34px;
+    left:50%;
 
-    if (gameOver) return;
+    transform:translateX(-50%);
+}
 
-    if (drinking) {
+.eye{
+    width:9px;
+    height:13px;
+    background:black;
+    border-radius:50%;
+}
 
-        timer += 0.016;
-        timeText.innerText = timer.toFixed(2) + "s";
+/* Mouth */
+.mouth{
+    width:20px;
+    height:4px;
+    background:black;
 
-        teaLevel -= 0.15;
+    position:absolute;
+    left:50%;
+    bottom:18px;
 
-        if (teaLevel <= 0) {
+    transform:translateX(-50%);
+    border-radius:10px;
+}
 
-            teaLevel = 0;
+/* Eyebrows */
+.eyebrow{
+    position:absolute;
+    width:18px;
+    height:4px;
+    background:black;
+    top:22px;
+    display:none;
+}
 
-            resultTitle.innerText = "YOU WIN!";
-            resultText.innerText =
-                "You finished the drink in " +
-                timer.toFixed(2) +
-                " seconds!";
+.eyebrow-left{
+    left:15px;
+}
 
-            overlay.style.display = "flex";
+.eyebrow-right{
+    right:15px;
+    transform:rotate(-20deg);
+}
 
-            gameOver = true;
+/* Body */
+.body{
+    width:70px;
+    height:50px;
 
-            if (timer > bestScore) {
+    background:white;
+    border:4px solid black;
+    border-bottom:none;
 
-                bestScore = timer;
-                bestText.innerText = bestScore.toFixed(2) + "s";
+    margin:auto;
+    margin-top:-10px;
 
-            }
+    border-radius:30px 30px 0 0;
+}
 
-        }
+/* Laptop */
+.laptop{
+    width:130px;
+    margin-top:-10px;
+}
 
-        tea.style.height = teaLevel + "%";
+.screen{
+    height:55px;
+    border-radius:6px;
+}
 
+.base{
+    height:10px;
+}
+
+.dark-laptop .screen,
+.dark-laptop .base{
+    background:#444;
+}
+
+.light-laptop .screen,
+.light-laptop .base{
+    background:#999;
+}
+
+/* Cup */
+.cup-area{
+    position:relative;
+    width:120px;
+    height:180px;
+}
+
+.straw{
+    position:absolute;
+
+    width:14px;
+    height:55px;
+
+    left:50%;
+    transform:translateX(-50%);
+
+    background:white;
+    border:3px solid black;
+
+    z-index:2;
+}
+
+.cup{
+    position:absolute;
+    bottom:0;
+
+    width:110px;
+    height:140px;
+
+    background:white;
+    border:4px solid black;
+
+    overflow:hidden;
+
+    clip-path:polygon(10% 0,90% 0,100% 100%,0 100%);
+}
+
+.tea{
+    position:absolute;
+    bottom:0;
+
+    width:100%;
+    height:80%;
+
+    background:#f2d27b;
+
+    transition:.2s;
+}
+
+/* Boba */
+.boba{
+    width:10px;
+    height:10px;
+    background:#2c1709;
+    border-radius:50%;
+    position:absolute;
+}
+
+.b1{left:20px;bottom:12px;}
+.b2{left:40px;bottom:12px;}
+.b3{left:60px;bottom:12px;}
+.b4{left:80px;bottom:12px;}
+
+.b5{left:30px;bottom:30px;}
+.b6{left:50px;bottom:30px;}
+.b7{left:70px;bottom:30px;}
+.b8{left:50px;bottom:50px;}
+
+/* Controls */
+.controls{
+    position:absolute;
+    bottom:60px;
+    width:100%;
+    text-align:center;
+}
+
+#drinkBtn{
+    border:none;
+    background:#ffd84d;
+
+    padding:18px 40px;
+
+    font-size:22px;
+    font-weight:bold;
+
+    border-radius:40px;
+
+    cursor:pointer;
+}
+
+/* Speech Bubble */
+.speech-bubble{
+    display:none;
+
+    position:absolute;
+    top:-60px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:white;
+    border:3px solid black;
+
+    padding:10px 18px;
+
+    border-radius:20px;
+
+    font-weight:bold;
+}
+
+/* Overlay */
+.overlay{
+    position:absolute;
+    inset:0;
+
+    background:rgba(0,0,0,.5);
+
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.result-card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+}
+
+#restartBtn{
+    margin-top:20px;
+
+    border:none;
+    background:#ffd84d;
+
+    padding:15px 30px;
+
+    border-radius:30px;
+
+    cursor:pointer;
+}
+
+/* Typing animation */
+@keyframes typing{
+    0%{
+        transform:translateY(0);
     }
 
-    animationFrame = requestAnimationFrame(update);
-
-}
-
-update();
-
-
-function startDrinking() {
-
-    if (gameOver) return;
-
-    drinking = true;
-
-    rightUser.classList.remove("working");
-    rightUser.classList.add("drinking");
-
-}
-
-function stopDrinking() {
-
-    if (gameOver) return;
-
-    drinking = false;
-
-    rightUser.classList.remove("drinking");
-    rightUser.classList.add("working");
-
-}
-
-drinkBtn.addEventListener("mousedown", startDrinking);
-drinkBtn.addEventListener("mouseup", stopDrinking);
-drinkBtn.addEventListener("mouseleave", stopDrinking);
-
-drinkBtn.addEventListener("touchstart", startDrinking);
-drinkBtn.addEventListener("touchend", stopDrinking);
-
-
-function randomLook() {
-
-    if (gameOver) return;
-
-    leftUser.classList.add("suspicious");
-
-    // 🤨 face duration
-    setTimeout(() => {
-
-        if (drinking) {
-
-            caught();
-
-        }
-        else {
-
-            leftUser.classList.remove("suspicious");
-
-        }
-
-    }, 500);
-
-}
-
-
-function caught() {
-
-    gameOver = true;
-
-    drinking = false;
-
-    cancelAnimationFrame(animationFrame);
-
-    speechBubble.style.display = "block";
-
-    resultTitle.innerText = "YOU LOSE";
-
-    resultText.innerText =
-        "Caught red-handed at " +
-        timer.toFixed(2) +
-        "s";
-
-    overlay.style.display = "flex";
-
-    if (timer > bestScore) {
-
-        bestScore = timer;
-
-        bestText.innerText =
-            bestScore.toFixed(2) + "s";
-
+    50%{
+        transform:translateY(-3px);
     }
 
+    100%{
+        transform:translateY(0);
+    }
 }
 
-
-function loopLook() {
-
-    if (gameOver) return;
-
-    let delay = Math.random() * 3000 + 1500;
-
-    setTimeout(() => {
-
-        randomLook();
-
-        loopLook();
-
-    }, delay);
-
+.working{
+    animation:typing .4s infinite;
 }
 
-loopLook();
+/* Suspicious face */
+.suspicious .head{
+    transform:rotate(12deg);
+}
 
+.suspicious .eyebrow{
+    display:block;
+}
 
-restartBtn.addEventListener("click", () => {
+/* Sweat */
+.sweat{
+    width:10px;
+    height:15px;
 
-    gameOver = false;
+    background:#8fdcff;
 
-    drinking = false;
+    position:absolute;
 
-    timer = 0;
+    border-radius:50%;
 
-    teaLevel = 80;
+    display:none;
+}
 
-    tea.style.height = "80%";
+.sweat1{
+    top:5px;
+    left:-5px;
+}
 
-    timeText.innerText = "0.00s";
+.sweat2{
+    top:15px;
+    right:-5px;
+}
 
-    overlay.style.display = "none";
-
-    speechBubble.style.display = "none";
-
-    leftUser.classList.remove("suspicious");
-
-    rightUser.classList.remove("drinking");
-
-    rightUser.classList.add("working");
-
-    update();
-
-    loopLook();
-
-});
+.drinking .sweat{
+    display:block;
+}
 ```
+
+
